@@ -15,9 +15,9 @@ const FuriHalRegion furi_hal_region_zero = {
 
 const FuriHalRegion furi_hal_region_eu_ru = {
     .country_code = "EU",
-    .bands_count = 2,
+    .bands_count = 1, //normally 2
     .bands = {
-        {
+        /* {
             .start = 433050000,
             .end = 434790000,
             .power_limit = 12,
@@ -28,7 +28,14 @@ const FuriHalRegion furi_hal_region_eu_ru = {
             .end = 868550000,
             .power_limit = 12,
             .duty_cycle = 50,
-        }}};
+        }*/
+        {
+            .start = 12,
+            .end = 1000000000,
+            .power_limit = 12,
+            .duty_cycle = 50,
+        },
+    }};
 
 const FuriHalRegion furi_hal_region_us_ca_au = {
     .country_code = "US",
@@ -108,7 +115,7 @@ const char* furi_hal_region_get_name() {
 
 bool furi_hal_region_is_frequency_allowed(uint32_t frequency) {
     if(!furi_hal_region) {
-        return false;
+        return true; //false before
     }
 
     const FuriHalRegionBand* band = furi_hal_region_get_band(frequency);
